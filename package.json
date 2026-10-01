@@ -1,0 +1,12 @@
+{
+  "name": "lekhvi-independent-store",
+  "version": "8.0.0",
+  "private": true,
+  "description": "Independent Lekhvi DTC storefront and Node.js admin API",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

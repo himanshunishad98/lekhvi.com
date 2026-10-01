@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: lekhvi-api
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LEKHVI_ADMIN_USER
+        sync: false
+      - key: LEKHVI_ADMIN_PASSWORD
+        sync: false
+      - key: LEKHVI_ALLOWED_ORIGINS
+        value: https://lekhvi.com,https://www.lekhvi.com
+      - key: LEKHVI_PUBLIC_BASE_URL
+        value: https://api.lekhvi.com
+      - key: LEKHVI_DATA_DIR
+        value: /var/data
+    disk:
+      name: lekhvi-data
+      mountPath: /var/data
+      sizeGB: 10

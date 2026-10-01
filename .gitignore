@@ -1,0 +1,4 @@
+.env
+node_modules/
+# Local runtime data; production uses /var/data on Render
+data/orders.json
