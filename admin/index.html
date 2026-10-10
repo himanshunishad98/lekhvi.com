@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Lekhvi.com secure administration">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Lekhvi Admin</title>
+  <link id="siteFavicon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23188038'/%3E%3Ctext x='32' y='43' font-size='38' text-anchor='middle' fill='white' font-family='Arial'%3EL%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/css/admin.css?v=18">
+</head>
+<body>
+  <div id="login" class="loginWrap">
+    <form id="loginForm" class="loginCard">
+      <div class="loginBrand"><a class="brandMark" id="loginLogo" href="../admin.html"><strong id="loginInitial">L</strong></a><div><strong>Lekhvi Admin</strong><div class="muted">Supabase-powered management</div></div></div>
+      <h1>Admin sign in</h1>
+      <p>Manage products, images, collections, orders, site branding, WhatsApp contact and hero offers.</p>
+      <div class="notice" style="margin:12px 0">Admin access is protected by Supabase Auth and the <code>admin_profiles.is_admin</code> check. Knowing this URL alone does not grant access.</div>
+      <div id="loginMessage" class="notice hidden"></div>
+      <div class="field"><label for="email">Admin email</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn primary" type="submit">Sign in</button>
+    </form>
+  </div>
+
+  <div id="app" class="layout hidden">
+    <aside class="sidebar">
+      <div class="adminBrand"><a class="brandMark" href="#dashboard" data-page-link="dashboard"><img id="sideLogo" class="hidden" alt=""><strong id="sideInitial">L</strong></a><div><strong id="sideBrandName">Lekhvi Admin</strong><small>Independent store</small></div></div>
+      <div class="navTitle">Dashboard</div>
+      <button class="sideBtn active" data-page-link="dashboard">Dashboard</button>
+      <button class="sideBtn" data-page-link="products">Products</button>
+      <button class="sideBtn" data-page-link="orders">Orders</button>
+      <button class="sideBtn" data-page-link="hero">Hero Offers</button>
+      <button class="sideBtn" data-page-link="settings">Settings</button>
+    </aside>
+
+    <section class="main">
+      <header class="topbar">
+        <div class="topTitle" id="pageTitle">Dashboard</div>
+        <div class="topActions"><a class="btn secondary" href="../index.html">View Store ↗</a><button class="btn secondary" id="reloadBtn" type="button">↻ Reload</button><button class="btn danger" id="logoutBtn" type="button">Logout</button></div>
+      </header>
+      <main class="content">
+        <section id="dashboardPage" class="page active">
+          <div class="sectionHead"><div><h2>Dashboard</h2><p>Live figures calculated from Supabase.</p></div></div>
+          <div class="cards" id="statCards"></div>
+          <div class="card mt14"><div class="sectionHead"><div><h2>Collections</h2><p>These are the collection values available to the product form.</p></div></div><div id="collectionOverview" class="tools"></div></div>
+        </section>
+
+        <section id="productsPage" class="page">
+          <div class="sectionHead"><div><h2>Products</h2><p>Products are fetched only from the Supabase database. No predefined product catalogue is shipped with the website.</p></div><div class="tools"><button class="btn primary" id="newProductBtn" type="button">＋ Add product</button><button class="btn secondary" id="reloadProductsBtn" type="button">↻ Reload products</button></div></div>
+          <div class="card">
+            <div class="filtersBar"><input id="productSearch" placeholder="Search product, SKU, category…"><select id="productStatus"><option value="all">All statuses</option><option value="published">Published</option><option value="draft">Draft / hidden</option></select><select id="productCollectionFilter"><option value="all">All collections</option></select></div>
+            <div class="tableWrap"><table class="table"><thead><tr><th>Product</th><th>Collection</th><th>Price</th><th>Stock</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody id="productRows"></tbody></table></div>
+          </div>
+        </section>
+
+        <section id="ordersPage" class="page">
+          <div class="sectionHead"><div><h2>Orders</h2><p>Manage orders created through the Supabase order function.</p></div><button class="btn secondary" id="reloadOrdersBtn" type="button">↻ Reload orders</button></div>
+          <div id="ordersList"></div>
+        </section>
+
+        <section id="heroPage" class="page">
+          <div class="sectionHead"><div><h2>Hero Offers</h2><p>Create the promotional hero slides shown on the storefront.</p></div><button class="btn primary" id="newHeroBtn" type="button">＋ Add offer</button></div>
+          <div class="offerGrid" id="heroList"></div>
+        </section>
+
+        <section id="settingsPage" class="page">
+          <div class="sectionHead"><div><h2>Website Settings</h2><p>Brand assets and the WhatsApp contact number are stored in Supabase.</p></div></div>
+          <div class="card">
+            <div class="settingGrid">
+              <div>
+                <div class="field"><label for="storeName">Store name</label><input id="storeName"></div>
+                <div class="field"><label for="storeTagline">Store tagline</label><input id="storeTagline"></div>
+                <div class="field"><label for="whatsappNumber">WhatsApp number</label><input id="whatsappNumber" inputmode="tel" placeholder="7470554811"></div>
+                <button class="btn primary" id="saveSettingsBtn" type="button">Save website settings</button>
+              </div>
+              <div>
+                <div class="field"><label for="logoFile">Website logo</label><input id="logoFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"></div>
+                <div class="preview" id="logoPreview"><span class="muted">No logo uploaded</span></div>
+                <div class="field"><label for="faviconFile">Website favicon</label><input id="faviconFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/x-icon"></div>
+                <div class="preview" id="faviconPreview"><span class="muted">No favicon uploaded</span></div>
+                <div class="tools mt10"><button class="btn secondary" id="uploadLogoBtn" type="button">Upload logo to Supabase</button><button class="btn secondary" id="uploadFaviconBtn" type="button">Upload favicon to Supabase</button></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <div id="productModal" class="modal">
+    <div class="modalCard">
+      <div class="modalHead"><strong id="productModalTitle">Product</strong><button class="btn secondary" data-close-modal="productModal" type="button">×</button></div>
+      <form id="productForm" class="modalBody">
+        <input id="productId" type="hidden">
+        <div class="formGrid">
+          <div class="field full"><label for="fName">Product name *</label><input id="fName" required></div>
+          <div class="field"><label for="fSku">SKU</label><input id="fSku"></div>
+          <div class="field"><label for="fCollection">Collection *</label><select id="fCollection" required><option value="">Loading collections…</option></select></div>
+          <div class="field"><label for="fSubcategory">Subcategory</label><select id="fSubcategory"><option value="">Select subcategory</option></select></div>
+          <div class="field hidden" id="newSubcategoryWrap"><label for="fNewSubcategory">New subcategory name *</label><input id="fNewSubcategory" maxlength="100" placeholder="Enter a new subcategory"></div>
+          <div class="field"><label for="fAge">Age range</label><select id="fAge"><option value="">Select age range</option></select></div>
+          <div class="field"><label for="fClass">Class / grade</label><select id="fClass"><option value="">Select class (optional)</option></select></div>
+          <div class="field"><label for="fLanguage">Language</label><input id="fLanguage"></div>
+          <div class="field"><label for="fFormat">Format</label><input id="fFormat"></div>
+          <div class="field"><label for="fPrice">Price (₹)</label><input id="fPrice" type="number" min="0" step="0.01"></div>
+          <div class="field"><label for="fCompare">Compare-at price (₹)</label><input id="fCompare" type="number" min="0" step="0.01"></div>
+          <div class="field"><label for="fStock">Stock</label><input id="fStock" type="number" min="0" step="1"></div>
+          <div class="field"><label for="fStatus">Status</label><select id="fStatus"><option value="published">Published</option><option value="draft">Draft / hidden</option></select></div>
+          <div class="field"><label for="fFeatured">Featured</label><select id="fFeatured"><option value="false">No</option><option value="true">Yes</option></select></div>
+          <div class="field full"><label for="fShort">Short description</label><input id="fShort"></div>
+          <div class="field full"><label for="fDesc">Full description</label><textarea id="fDesc" rows="9" placeholder="Use blank lines for paragraphs, ## for section headings, - for bullets, **text** for bold, and *text* for italic."></textarea><small class="fieldHint">Formatting is preserved in the product preview: Enter for a new line, a blank line for a new paragraph, ## Heading, - Bullet item, **bold**, or *italic*. Existing uppercase section labels are formatted automatically.</small></div>
+          <div class="field full"><label for="fGet">What's included — one item per line</label><textarea id="fGet"></textarea></div>
+          <div class="field full"><label for="fTags">Tags — comma separated</label><input id="fTags"></div>
+        </div>
+        <div class="card productHeroCard">
+          <div class="sectionHead"><div><h2>Hero offer for this product</h2><p>Turn this product into a storefront hero offer with its own custom promotional image.</p></div></div>
+          <div class="formGrid">
+            <div class="field"><label for="fHeroEnabled">Show on hero offer</label><select id="fHeroEnabled"><option value="false">No</option><option value="true">Yes</option></select></div>
+            <div class="field"><label for="fHeroSort">Hero order</label><input id="fHeroSort" type="number" min="0" step="1" value="0"></div>
+            <div class="field"><label for="fHeroEyebrow">Hero eyebrow</label><input id="fHeroEyebrow" placeholder="SPECIAL OFFER"></div>
+            <div class="field"><label for="fHeroBadge">Hero badge</label><input id="fHeroBadge" placeholder="Limited time"></div>
+            <div class="field full"><label for="fHeroTitle">Hero title</label><input id="fHeroTitle" placeholder="Uses the product name when blank"></div>
+            <div class="field full"><label for="fHeroDescription">Hero description</label><textarea id="fHeroDescription" placeholder="Short promotional description"></textarea></div>
+          </div>
+          <div class="field"><label for="fHeroImage">Custom hero image</label><input id="fHeroImage" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"></div>
+          <div id="heroProductImagePreview" class="preview"><span class="muted">No custom hero image</span></div>
+        </div>
+        <div class="sectionHead mt14"><div><h2>Variants</h2></div><button class="btn secondary tiny" id="addVariantBtn" type="button">＋ Add variant</button></div>
+        <div id="variants"></div>
+        <div class="sectionHead mt18"><div><h2>Sample pictures</h2><p>Upload the three product samples into Supabase Storage.</p></div></div>
+        <div id="imageGrid" class="imageGrid"></div>
+        <div id="uploadRow" class="uploadRow"></div>
+        <div class="editorActions"><button class="btn danger hidden" id="deleteProductBtn" type="button">Delete product</button><button class="btn secondary" type="button" data-close-modal="productModal">Cancel</button><button class="btn primary" type="submit">Save product</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="heroModal" class="modal">
+    <div class="modalCard">
+      <div class="modalHead"><strong id="heroModalTitle">Hero Offer</strong><button class="btn secondary" data-close-modal="heroModal" type="button">×</button></div>
+      <form id="heroForm" class="modalBody">
+        <input id="heroId" type="hidden">
+        <div class="formGrid">
+          <div class="field full"><label for="hEyebrow">Eyebrow</label><input id="hEyebrow" placeholder="OFFER"></div>
+          <div class="field full"><label for="hTitle">Title *</label><input id="hTitle" required></div>
+          <div class="field full"><label for="hDescription">Description</label><textarea id="hDescription"></textarea></div>
+          <div class="field"><label for="hCtaText">Button text</label><input id="hCtaText" value="Shop now"></div>
+          <div class="field"><label for="hCtaLink">Button link</label><input id="hCtaLink" value="#shop"></div>
+          <div class="field"><label for="hBadge">Badge</label><input id="hBadge"></div>
+          <div class="field"><label for="hSort">Order</label><input id="hSort" type="number" value="0"></div>
+          <div class="field"><label for="hActive">Active</label><select id="hActive"><option value="true">Active</option><option value="false">Hidden</option></select></div>
+          <div class="field full"><label for="hImage">Hero image</label><input id="hImage" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"></div>
+        </div>
+        <div id="heroImagePreview" class="preview mt10"><span class="muted">No image selected</span></div>
+        <div class="editorActions"><button class="btn secondary" type="button" data-close-modal="heroModal">Cancel</button><button class="btn primary" type="submit">Save offer</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../supabase-config.js"></script>
+  <script src="../assets/js/admin.js?v=18"></script>
+</body>
+</html>

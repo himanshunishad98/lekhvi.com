@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Lekhvi.com — independent learning, planning and stationery store">
+  <meta name="theme-color" content="#188038">
+  <title>Lekhvi.com</title>
+  <link id="siteFavicon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23188038'/%3E%3Ctext x='32' y='43' font-size='38' text-anchor='middle' fill='white' font-family='Arial'%3EL%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/store.css?v=18">
+</head>
+<body>
+  <div class="topbar" id="topbar">Independent learning & productivity store · powered by Lekhvi</div>
+  <header class="nav">
+    <div class="navin">
+      <a class="brand" href="#top" aria-label="Lekhvi home">
+        <span class="brandMark"><img id="siteLogo" class="hidden" alt="Lekhvi logo"><strong id="brandInitial">L</strong></span>
+        <span><b class="brandName" id="brandName">Lekhvi.com</b><small class="brandTag" id="brandTag">Learn · Practice · Create</small></span>
+      </a>
+      <nav class="links" id="navLinks" aria-label="Primary"></nav>
+      <div class="actions">
+        <div class="searchWrap">
+          <div class="search" role="search">
+            <input id="search" autocomplete="off" aria-label="Search products" placeholder="Search products…">
+            <button id="searchBtn" type="button" aria-label="Search">⌕</button>
+          </div>
+          <div id="searchSuggest" class="searchSuggest" role="listbox" aria-label="Search suggestions"></div>
+        </div>
+        <button class="iconBtn mobileBtn" id="mobileMenuBtn" type="button" aria-label="Open menu">☰</button>
+        <button class="iconBtn" id="cartBtn" type="button" aria-label="Open cart">🛒<span class="cartCount" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="heroIn">
+        <div class="heroText" id="heroText">
+          <span class="eyebrow">LEKHVI.COM</span>
+          <h1>Learning resources for <em>everyday growth.</em></h1>
+          <p>Explore worksheets, practice resources, planners, activity packs and stationery organised around learning, planning and creativity.</p>
+          <div class="heroCtas">
+            <a class="btn btnPrimary" href="#shop">Browse catalogue</a>
+            <a class="btn btnSecondary" href="#collections">Shop by collection</a>
+          </div>
+          <div class="heroMeta"><span>✓ <strong id="productCount">0</strong> products available</span><span>✓ Live from Supabase</span><span>✓ Independent checkout</span></div>
+        </div>
+        <div class="heroVisual" id="heroVisual"><div class="heroVisualEmpty"><div><strong>Offers appear here</strong><span>Admin can create and publish hero offers from the Admin Panel.</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="collections">
+      <div class="head"><div><h2>Shop by collection</h2><p>Collections and category names are loaded from your Supabase database.</p></div></div>
+      <div class="collections" id="collectionsGrid"><div class="loading">Loading collections…</div></div>
+    </section>
+
+    <section class="section sectionAlt" id="shop">
+      <div class="head"><div><h2>Product catalogue</h2><p id="catalogSub">Loading products from Supabase…</p></div><span class="counttext" id="filterCount"></span></div>
+      <div class="toolbar">
+        <div class="filters" id="collectionFilters"></div>
+        <select id="age" aria-label="Filter by age"><option>All ages</option></select>
+        <select id="lang" aria-label="Filter by language"><option>All languages</option></select>
+        <select id="format" aria-label="Filter by format"><option>All formats</option></select>
+        <select id="sort" aria-label="Sort products"><option value="featured">Featured</option><option value="priceLow">Price: Low to High</option><option value="priceHigh">Price: High to Low</option><option value="name">Name A–Z</option></select>
+      </div>
+      <div class="grid" id="productGrid"><div class="loading">Loading products…</div></div>
+      <div class="pager" id="pager"></div>
+    </section>
+
+    <section class="section" id="productPreview">
+      <div class="head"><div><h2>Product preview</h2><p id="previewHint">Select a product to view its live details and sample pictures.</p></div></div>
+      <div class="pdp" id="pdp"><div class="loading">No product selected.</div></div>
+    </section>
+
+    <section class="section sectionAlt">
+      <div class="head"><div><h2>Why Lekhvi</h2><p>Built as an independent storefront without Shopify or WooCommerce.</p></div></div>
+      <div class="features">
+        <article><div>🔐</div><b>Own catalogue</b><span>Product information comes from your Supabase database.</span></article>
+        <article><div>🛒</div><b>Own cart</b><span>Cart state remains in the customer browser.</span></article>
+        <article><div>💳</div><b>Own checkout boundary</b><span>Orders are recorded through your Supabase order function.</span></article>
+        <article><div>🖼️</div><b>Managed images</b><span>Product and site images can be stored in Supabase Storage.</span></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footerIn">
+      <div><h3 id="footerName">Lekhvi.com</h3><p>Independent learning, planning and stationery store.</p></div>
+      <div><h4>Shop</h4><div id="footerCollections"></div></div>
+      <div><h4>Account</h4><a href="admin.html">Admin</a></div>
+      <div><h4>Contact</h4><p>Use the WhatsApp button for product questions and enquiries.</p></div>
+    </div>
+    <div class="copy"><span>© 2026 Lekhvi.com</span><span>Supabase-powered independent storefront</span></div>
+  </footer>
+
+  <button id="whatsappBtn" class="whatsappFloat" type="button">WhatsApp</button>
+
+  <div id="overlay" class="overlay"></div>
+  <aside id="cartDrawer" class="drawer" aria-label="Shopping cart">
+    <div class="drawerHead"><strong>Your cart</strong><button class="iconBtn" id="closeCart" type="button" aria-label="Close cart">×</button></div>
+    <div class="items" id="cartItems"></div>
+    <div class="drawerBottom"><div class="total"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div><button class="btn btnPrimary" id="checkoutBtn" type="button">Continue to checkout</button></div>
+  </aside>
+
+  <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <div class="modalCard">
+      <div class="modalHead"><strong id="checkoutTitle">Independent checkout</strong><button class="iconBtn" id="closeCheckout" type="button" aria-label="Close checkout">×</button></div>
+      <div class="modalBody checkout">
+        <div class="notice">Your order request is recorded in the Lekhvi Supabase database. Payment gateway integration can be connected separately.</div>
+        <form id="checkoutForm">
+          <div class="field"><label for="customerName">Name</label><input id="customerName" required></div>
+          <div class="field"><label for="customerMobile">Mobile</label><input id="customerMobile" inputmode="tel" required></div>
+          <div class="field"><label for="customerEmail">Email</label><input id="customerEmail" type="email"></div>
+          <div class="field"><label for="customerAddress">Address</label><textarea id="customerAddress" required></textarea></div>
+          <div class="field"><label for="paymentMethod">Payment method</label><select id="paymentMethod"><option value="UPI_CARD">UPI / Card</option><option value="COD">Cash on Delivery</option></select></div>
+          <button class="btn btnPrimary" type="submit">Place order request</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="assets/js/store.v18.js?v=20261009-18"></script>
+</body>
+</html>
